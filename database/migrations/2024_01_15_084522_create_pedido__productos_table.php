@@ -18,7 +18,7 @@ return new class extends Migration
             $table->float('precioU');
             $table->foreignId('pedido_id')->constrained()->onUpdate('cascade')
                 ->onDelete('restrict');
-            $table->integer('producto');
+            $table->unsignedBigInteger('producto');
             $table->foreign('producto')->references('id')->on('productos')->constrained()
                 ->onUpdate('cascade')->onDelete('restrict');
         });
