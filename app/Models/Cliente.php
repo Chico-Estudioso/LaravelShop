@@ -12,10 +12,14 @@ class Cliente extends Model
 
     function pedidos()
     {
-        // //Si no seguimos la convencion de nombres
-        // return $this->HasMany(Pedido::class,'cliente_id','id')->get();
+        //Si no seguimos la convención de nombres
+        //return $this->HasMany(Pedido::class,'cliente_id','id')->get();
 
-        //Si seguimos la convencion de nombres
+        //Si seguimos la convención de nombres
         return $this->HasMany(Pedido::class)->get();
+    }
+    function usuario()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

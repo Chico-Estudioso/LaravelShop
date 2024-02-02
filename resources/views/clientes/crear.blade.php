@@ -24,7 +24,7 @@
         </div>
         <div class="mb-3">
             <button type="submit" class="btn btn-outline-success">Crear</button>
-            <a href="{{route('productos')}}" class="btn btn-outline-danger">Cancelar</a>
+            <a href="{{route('clientes')}}" class="btn btn-outline-danger">Cancelar</a>
         </div>
     </form>
 @endsection

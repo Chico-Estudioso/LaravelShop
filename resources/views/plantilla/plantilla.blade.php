@@ -17,6 +17,8 @@
             <div style="display: flex; ">
               <img src="{{asset('img/logo.png')}}" alt="logo" style="width: 100px">
               <h1 class="display-6">@yield('titulo')</h1>
+              <h3 class="" style="margin-left: auto"> {{Auth::user()->name}}</h3>
+              <a href={{route('salir')}} class="btn btn-outline-danger" style="margin-left: auto">SALIR</a>
             </div>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
@@ -42,6 +44,14 @@
                 <!-- Comprobar si hay mensaje en la variable de sessión -->
                 @if (session('mensaje'))
                 <h5 class="text-danger">{{session('mensaje')}}</h5> 
+                @endif
+                
+                @if ($errors->any())
+                  <ul>
+                    @foreach ($errors->all() as $e)
+                        <li class="text-danger">{{$e}}</li>
+                    @endforeach
+                  </ul>
                 @endif
             </div>
         </section>

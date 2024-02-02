@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteC;
+use App\Http\Controllers\LoginC;
 use App\Http\Controllers\ProductoC;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 })->name('inicio');
+
+Route::controller(LoginC::class)->group(function () {
+    Route::get('login', 'login')->name('login'); //Carga form login
+    Route::get('login/registro', 'registro')->name('registro'); //Carga form registro
+    Route::get('login/salir', 'salir')->name('salir'); //Cierra sesión
+    Route::post('login', 'loguear')->name('loguear'); //Inicia sesión si us y ps válidos
+    Route::post('login/registro', 'registrar')->name('registrar'); //Crea usuario y cliente
+});
 
 Route::controller(ProductoC::class)->group(function () {
     //Definir una ruta básica para ver todos los productos
@@ -43,14 +52,15 @@ Route::controller(ClienteC::class)->group(function () {
     //Ruta para ver todos los clientes
     Route::get('clientes', 'clientes')->name('clientes');
     //Ruta para crear un cliente
-    Route::get('clientes/crear', 'crear')->name('crearCliente');
-    Route::post('clientes/insertar', 'insertar')->name('insertarCliente');
+    // Route::get('clientes/crear', 'crearCliente')->name('crearCliente');
+    // Route::post('clientes/insertar', 'insertarCliente')->name('insertarCliente');
     //Ruta para ver un cliente concreto, pasando el id
     Route::get('clientes/{idC}', 'ver')->name('verC');
     //Ruta para borrar un vliente concreto, pasando el id
-    Route::get('clientes/borrar/{idC}', 'borrar')->name('borrarC');
+    Route::delete('clientes/borrar/{idC}', 'borrarCliente')->name('borrarC');
     //Ruta para modificar un cliente concreto, pasando el id
-    Route::get('clientes/modificar/{idC}', 'modificar')->name('modificarC');
+    Route::get('clientes/modificar/{idC}', 'modificarCliente')->name('modificarC');
+    Route::put('clientes/modificar/{idC}', 'actualizarCliente')->name('actualizarC');
 });
 
 
