@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\CarritoC;
 use App\Http\Controllers\ClienteC;
 use App\Http\Controllers\LoginC;
+use App\Http\Controllers\PedidosC;
 use App\Http\Controllers\ProductoC;
 use Illuminate\Support\Facades\Route;
 
@@ -28,10 +30,20 @@ Route::controller(LoginC::class)->group(function () {
     Route::post('login/registro', 'registrar')->name('registrar'); //Crea usuario y cliente
 });
 
+Route::controller(PedidosC::class)->group(function () {
+    Route::get('pedidos', 'pedidos')->name('pedidos'); //Carga form login
+});
+
+
+Route::controller(CarritoC::class)->group(function () {
+    Route::post('carrito', 'insertarCarrito')->name('aCarrito'); //Carga form login
+});
+
 Route::controller(ProductoC::class)->group(function () {
     //Definir una ruta básica para ver todos los productos
     //Ruta para ver todos los productos
     Route::get('productos', 'productos')->name('productos');
+
     //Ruta básica
     //Definir ruta para crear un producto
     Route::get('productos/crear', 'crear')->name('crearProducto');

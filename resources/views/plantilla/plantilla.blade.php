@@ -26,13 +26,16 @@
                     <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                       <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{route('productos')}}">Productos</a>
-                     </li>
+                      </li>
+                      @if (Auth::user()->tipo=='A')
                       <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{route('clientes')}}">Clientes</a>
-                        </li>
-                      <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{route('productos')}}">Pedidos</a>
                       </li>
+                      @endif
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{route('pedidos')}}">Pedidos</a>
+                      </li>                                               
+                      
                     </ul>
                   </div>
                 </div>

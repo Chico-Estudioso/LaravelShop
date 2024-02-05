@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ProductoC extends Controller
@@ -18,13 +19,19 @@ class ProductoC extends Controller
         //Recuperar los productos para mostrarlos en la
         //tabla de la vista productos
         $productos = Producto::all();
-        return view('productos/productos', compact('productos'));
+        if (Auth::user()->tipo == 'A') {
+            return view('productos/productos', compact('productos'));
+        } else {
+            return view('productos/productosC', compact('productos'));
+        }
     }
     //Método que maneja la ruta crearProducto
     function crear()
     {
         return view('productos/crear');
     }
+
+
     //Esta método se llama desde el submit del formulario
     //Para acceder a los campos del formulario hay que
     //definir un parámetro de la clase Request
