@@ -19,6 +19,9 @@
               <h1 class="display-6">@yield('titulo')</h1>
               <h3 class="" style="margin-left: auto"> {{Auth::user()->name}}</h3>
               <a href={{route('salir')}} class="btn btn-outline-danger" style="margin-left: auto">SALIR</a>
+              @if (session('carrito')!=null)
+                  <a class="btn btn-primary m-2" href="{{route('verCarrito')}}">Carrito:{{sizeof(session('carrito'))}}</a>
+              @endif
             </div>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">

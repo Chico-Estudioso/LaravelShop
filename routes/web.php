@@ -32,11 +32,15 @@ Route::controller(LoginC::class)->group(function () {
 
 Route::controller(PedidosC::class)->group(function () {
     Route::get('pedidos', 'pedidos')->name('pedidos'); //Carga form login
+    Route::post('pedidos/crear', 'crearPedido')->name('crearPedido'); //Carga form login
+
 });
 
 
 Route::controller(CarritoC::class)->group(function () {
     Route::post('carrito', 'insertarCarrito')->name('aCarrito'); //Carga form login
+    Route::get('carrito/verCarrito', 'verCarrito')->name('verCarrito');
+    Route::post('carrito/modificarCarrito', 'modificarCarrito')->name('modificarCarrito');
 });
 
 Route::controller(ProductoC::class)->group(function () {

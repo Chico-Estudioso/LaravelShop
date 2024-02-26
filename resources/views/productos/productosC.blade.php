@@ -29,7 +29,7 @@
                     <td>
                         <form action="{{route('aCarrito')}}" method="post">
                         @csrf
-                        <button type="submit" class="btn btn-outline-success" href="{{route('aCarrito',$p->id)}}">Carrito</button>
+                        <button type="submit" class="btn btn-outline-success" name="carrito" value="{{$p->id}}">Carrito</button>
                         </form>
                     </td>
                 </tr>

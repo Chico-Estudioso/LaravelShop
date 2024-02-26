@@ -13,29 +13,59 @@ class CarritoC extends Controller
         $this->middleware('auth');
     }
 
-    function insertarCarrito($idP)
+    function insertarCarrito(Request $r)
     {
-        $producto = Producto::find($idP);
+        $producto = Producto::find($r->carrito);
 
 
         //Añadir al carrito el producto
         //El carrito se almacena en una variable de sesión 
         if (session('carrito') == null) {
-            session(['carrito' => array()]);
+            $carrito = array();
+        } else {
+            $carrito = session('carrito');
         }
         $actualizado = false;
-        foreach (session('carrito') as $pc) {
-            if ($pc['prducto']->id == $producto->id) {
-                $pc['cantidad'] += 1;
+        foreach ($carrito as $clave => $pc) {
+            if ($pc['producto']->id == $producto->id) {
+                $carrito[$clave]['cantidad'] = $r->cantidad;
                 $actualizado = true;
             }
         }
         if (!$actualizado) {
             //Añadir al carrito el producto
             //El carrito se almacena en una variable de sesión 
-            session('carrito')[] = array('producto' => $producto, 'cantidad' => 1);
+            $carrito[] = array('producto' => $producto, 'cantidad' => 1);
         }
-        //Añadir al carrito el producto
-        session('carrito')[] = $producto;
+        session(['carrito' => $carrito]);
+        return back()->with('mensaje', 'Producto añadido al carrito');
+    }
+
+    function verCarrito()
+    {
+        return view('carrito/verCarrito');
+    }
+    function modificarCarrito(Request $r)
+    {
+        $carrito = session('carrito');
+        if ($r->modificarPC != null) {
+            //MODIFICAR LA CANTIDAD DEL PRODUCTO EN EL CARRRITO
+            foreach ($carrito as $clave => $pc) {
+                if ($pc['producto']->id == $r->modificarPC) {
+                    $carrito[$clave]['cantidad'] = $pc['cantidad'] + $r->cantidad;
+                    session(['carrito' => $carrito]);
+                    return back()->with('mensaje', 'Producto Modificado');
+                }
+            }
+        } elseif ($r->borrarPC != null) {
+            //Borrar la cantidad de producto del carrito
+            foreach ($carrito as $clave => $pc) {
+                if ($pc['producto']->id == $r->borrarPC) {
+                    unset($carrito[$clave]);
+                    session(['carrito' => $carrito]);
+                    return back()->with('mensaje', 'Producto Borrado');
+                }
+            }
+        }
     }
 }
